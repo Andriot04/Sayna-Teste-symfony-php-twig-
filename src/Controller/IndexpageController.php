@@ -13,16 +13,9 @@ class IndexpageController extends AbstractController
      * @Route("/", name="index")
      */
     public function index(CartRepository $cartRepository): Response
-    {
-        try {
+    {    
             return $this->render('indexpage/index.html.twig', [
                 'listcardbyuser' => $cartRepository->findBy(['user' => $this->getUser()]),
             ]);
-        }catch (\Exception $e){
-            return $this->render('indexpage/index.html.twig', [
-                'listcardbyuser' => '',
-            ]);
-        }
-
     }
 }
