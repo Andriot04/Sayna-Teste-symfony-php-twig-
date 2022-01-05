@@ -1,0 +1,15 @@
+mercure:
+     enable_profiler: '%kernel.debug%'
+     hubs:
+         default:
+             url: '%env(MERCURE_PUBLISH_URL)%'
+             public_url: '%env(MERCURE_PUBLISH_URL)%'
+             jwt: '%env(MERCURE_JWT_TOKEN)%'
+
+# mercure:
+#    hubs:
+#        default:
+#           url: '%env(MERCURE_PUBLISH_URL)%'
+#           jwt:
+#               secret: '!ChangeMe!'
+#               publish: '*'

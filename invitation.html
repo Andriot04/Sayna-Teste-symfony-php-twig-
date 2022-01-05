@@ -1,0 +1,86 @@
+
+<html>
+<heade>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+<style>
+.cadre{
+    position: absolute;
+}
+.theme{
+    position: absolute;
+    z-index: 2;
+    font-size: 32px;
+    font-family: "Brush Script MT", cursive;
+    color: white; z-index: 1;margin-left: 5px;
+    top:45px;
+    padding-left: 10px;
+    opacity: 0.9;
+}
+.textes{
+    position: absolute;
+    font-size: 18px;
+    top:180px;
+    z-index: 3;
+    font-family: "Apple Chancery", cursive;
+    padding: 8px;
+    opacity: 0.9;
+}
+.foottextes{
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    top:500px;
+    z-index: 3;
+    padding: 8px;
+    font-family: "Apple Chancery", cursive;
+}
+.neon{
+    position: absolute;
+    text-shadow: 0 0 20px #ff005b;
+}
+.neon:after{
+    content: attr(data-text);
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+    color: #ff005b;
+    filter: blur(20px);
+}
+.fontss{
+    font-family: "Brush Script MT", cursive;
+}
+.show18{
+    position: absolute;
+    z-index: 1;
+}
+</style>
+</heade>
+<body style="background-color: black">
+<div class="cadre">
+    <img src="public/background/Snapshot_1.png" style="width: 100%;height: 100%"></img>
+</div>
+<div class="theme" style="">
+    <u>Thème:</u> "Mirroir, mon beau mirroir,<br> dit moi qui est la plus belle ?"
+</div>
+<div>
+    Chers amis,
+</div>
+<div class="textes" style="color: white;z-index: 1">
+    <span style="margin-left: 150px">Chers amis,</span><br>
+    <span style="padding-left: 30px"> J'ai l'immense plaisir de vous inviter </span> <br> à célébrer mes 18ème annivarsaires, qui aura <br> lieu  le 03 septembre 2021 chez moi à partir <br> du 18h dans  la soirée. <br>
+    Je tâcherais de vous faire passer une belle et <br>agréable soirée! :) <br>
+    Je compte sur votre présence!! <br><br>
+    <u>N.B</u> "Que chacun se fasse beau et belle  à sa <br> façon!!"
+</div>
+<div class="foottextes">
+    Sincèrement,
+    <h2 class="neon fontss" style="margin-top: 2px;margin-left: 10px" data-text="Francka">Francka</h2>
+</div>
+<div style="position: absolute; top:50px; left: 200px; z-index: 2;color: white; opacity: 0.2; font-size: 80px; transform: rotate(45deg);">
+    <h1 class="neon"data-text="18">18</h1>
+</div>
+
+</body>
+</html>

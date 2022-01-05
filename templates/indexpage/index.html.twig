@@ -1,0 +1,233 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Documentation Technique{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="ml-1 col-md-3">
+            {% if app.user %}
+                <div class="btn btn-md btn-dark mt-4">
+                    <i class="fa fa-sign-out"></i>
+                    <a class="fsize14 text-white pt-3" href="{{ path('app_logout') }}">Logout</a>
+                </div>
+                <div class="col-md-12 mt-4">
+                    <h5 style="color: #e3ac62">Suppression du compte</h5>
+                    <a class="ml-2 btn btn-sm btn-danger sup" href="{{ path('suppression',{'id':app.user.id}) }}"><i class="fa fa-trash"></i></a>
+                </div>
+                <div class="col-md-12 mt-4">
+                    <h5 style="color: #e3ac62">Sources audios</h5>
+                    <a class="ml-2 btn btn-sm btn-success sup" href="{{ path('sourceaudio') }}"><i class="fa fa-get-pocket"></i></a>
+                </div>
+                <div class="col-md-12 mt-4">
+                    <h5 style="color: #e3ac62">Sources audios By Id</h5>
+                    <a class="ml-2 btn btn-sm btn-success mt-2" href="{{ path('sourceaudiobyid',{'id':1}) }}">Song 1 <i class="fas fa-2x fa-file-sound-o"></i></a>
+                    <a class="ml-2 btn btn-sm btn-success mt-2" href="{{ path('sourceaudiobyid',{'id':2}) }}">Song 2 <i class="fas fa-2x fa-file-sound-o"></i></a>
+                    <a class="ml-2 btn btn-sm btn-success mt-2" href="{{ path('sourceaudiobyid',{'id':3}) }}">Song 3 <i class="fas fa-2x fa-file-sound-o"></i></a>
+                    <a class="ml-2 btn btn-sm btn-success mt-2" href="{{ path('sourceaudiobyid',{'id':4}) }}">Song 4 <i class="fas fa-2x fa-file-sound-o"></i></a>
+                    <a class="ml-2 btn btn-sm btn-success mt-2" href="{{ path('sourceaudiobyid',{'id':5}) }}">Song 5 <i class="fas fa-2x fa-file-sound-o"></i></a>
+                </div>
+            {% else %}
+                <form method="post" action="{{ path('app_login') }}" class="form_login" >
+                    <br>
+                    <h2 style="color: #e3ac62">S'authentifier</h2>
+                    <label for="inputEmail">Email</label>
+                    <div class="form-group position-relative">
+                        <input type="email" value="" name="email" id="inputEmail" class="input_login bg-light border-bottom pl-2 pr-5" autocomplete="email"  autofocus>
+                    </div>
+                    <label for="inputPassword">Mot de passe</label>
+                    <div class="form-group position-relative">
+                        <input class="input_login bg-light border-bottom pl-2 pr-5" type="password" name="password" id="inputPassword" autofocus autocomplete="off">
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button class="btn btn-md btn-primary mb-3" type="submit">
+                        Connexion
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+        {% if app.user %}
+        <div class="ml-1 col-md-3">
+                <form method="post" action="{{ path('update_user') }}" class="form_login" >
+                    <br>
+                    <h2 style="color: #e3ac62">Modification</h2>
+                    <label for="firstname">Firstname</label>
+                    <div class="form-group position-relative">
+                        <input type="text" value="{{ app.user.firstname }}" name="firstnamemodif" id="firstnamemodif" class="input_login bg-light border-bottom pl-2 w-90 " autocomplete="email"  autofocus>
+                    </div>
+                    <label for="Lastname">Lastname</label>
+                    <div class="form-group position-relative">
+                        <input type="text" value="{{ app.user.lastname }}" name="lastnamemodif" id="lastnamemodif" class="input_login bg-light border-bottom pl-2 w-90" autocomplete="email"  autofocus>
+                    </div>
+                    <label for="datenaissance">Date de Naissance</label>
+                    <div class="form-group position-relative">
+                        <input type="date" value="{{ app.user.datenaissance|date('Y-m-d') }}" name="datenaissancemodif" id="datenaissancemodif" class="input_login bg-light border-bottom pl-2 w-90" autocomplete="email"  autofocus>
+                    </div>
+                    <label for="sexe">Sexe</label>
+                    <div class="form-group position-relative">
+                        <select class="input_login bg-light border-bottom pl-2 w-90" name="sexemodif" id="sexemodif" autofocus>
+                            <option default="{{ app.user.sexe }}">{% if app.user.sexe == 'F' %}Femme{% else%}Homme{% endif %}</option>
+                            <option value="M">Homme</option>
+                            <option value="F">Femme</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="tokenadger" value="{{ csrf_token('tokenadger') }}">
+                    <button class="btn btn-md btn-primary mb-3" type="submit">
+                        Modifier
+                    </button>
+                </form>
+        </div>
+        {% endif %}
+        <div class="col-md-4">
+            {% for flashError in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+            {% endfor %}
+
+                <form method="post" action="{{ path('app_register') }}" class="form_login" >
+                    <br>
+                    <h2 style="color: #e3ac62">Register</h2>
+                    <div class="row ">
+                        <div class="col-md-6 p-0 m-0" >
+                            <label >Email</label>
+                            <div class="form-group position-relative">
+                                <input type="email" value="" name="email" id="emails" class="input_login bg-light border-bottom pl-2 w-90" autocomplete="email"  autofocus>
+                            </div>
+                            <label for="firstname">Firstname</label>
+                            <div class="form-group position-relative">
+                                <input type="text" value="" name="firstname" id="firstname" class="input_login bg-light border-bottom pl-2 w-90 " autocomplete="email"  autofocus>
+                            </div>
+                            <label for="datenaissance">Date de Naissance</label>
+                            <div class="form-group position-relative">
+                                <input type="date" value="" name="datenaissance" id="datenaissance" class="input_login bg-light border-bottom pl-2 w-90" autocomplete="email"  autofocus>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0 m-0" >
+                            <label for="plainPassword">Mot_de_passe</label>
+                            <div class="form-group position-relative">
+                                <input class="input_login bg-light border-bottom pl-2 w-90" type="password" name="plainPassword" id="plainPassword" autofocus autocomplete="off">
+                            </div>
+                            <label for="Lastname">Lastname</label>
+                            <div class="form-group position-relative">
+                                <input type="text" value="" name="lastname" id="lastname" class="input_login bg-light border-bottom pl-2 w-90" autocomplete="email"  autofocus>
+                            </div>
+                            <label for="sexe">Sexe</label>
+                            <div class="form-group position-relative">
+                                <select class="input_login bg-light border-bottom pl-2 w-90" name="sexe" id="sexe" autofocus>
+                                    <option default="M">Homme</option>
+                                    <option value="F">Femme</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="tokenadger" id="token" value="{{ csrf_token('tokenadger') }}">
+                    <button class="btn btn-md btn-primary mb-3" type="submit">
+                        Envoyer
+                    </button>
+                </form>
+        </div>
+        <div class="ml-1 col-md-3">
+            <form method="post" action="{{ path('add_card') }}" class="form_login" >
+                <br>
+                <h2 style="color: #e3ac62">ADD CARD</h2>
+                <label for="cartNumber">Numéro de carte</label>
+                <div class="form-group position-relative">
+                    <input type="text" value="" name="cartNumber" id="cartNumber" class="input_login bg-light border-bottom pl-2 w-90 " autocomplete="email"  autofocus>
+                </div>
+                <label for="month">Month</label>
+                <select class="input_login bg-light border-bottom pl-2 w-80" name="month" id="month" autofocus>
+                    <option value="1">01</option>
+                    <option default="2">02</option>
+                    <option value="3">03</option>
+                    <option value="4">04</option>
+                    <option value="5">05</option>
+                    <option value="6">06</option>
+                    <option value="7">07</option>
+                    <option value="8">08</option>
+                    <option value="9">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+                <label for="year">Year</label>
+                <select class="input_login bg-light border-bottom pl-2 w-80" name="year" id="year" autofocus>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+                <input type="hidden" name="tokenadger" value="{{ csrf_token('tokenadger') }}">
+                <button class="btn btn-md btn-primary mb-3" type="submit">
+                    Valider
+                </button>
+            </form>
+        </div>
+        <div class="ml-1 col-md-3">
+            <form method="post" action="{{ path('subscription') }}" class="form_login" >
+                <br>
+                <h2 style="color: #e3ac62">Subscription</h2>
+                <label for="cartNumber">Id de la carte</label>
+                <select class="input_login bg-light border-bottom pl-2 w-90" name="idcard" id="idcard" autofocus>
+                    <option value="">Choix carte</option>
+                    {% if app.user %}
+                        {% for listcardbyuser in listcardbyuser %}
+                            <option value="{{ listcardbyuser.cardnumber }}">id:{{ listcardbyuser.id }} / card_Number: {{ listcardbyuser.cardnumber }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select><br><br>
+                <label for="cvc">CVC</label>
+                <div class="form-group position-relative">
+                    <input type="text" value="" name="cvc" id="cvc" minlength="3" maxlength="4"  class="input_login bg-light border-bottom pl-2 w-90 " autocomplete="email"  autofocus>
+                </div>
+                <input type="hidden" name="tokenadger" value="{{ csrf_token('tokenadger') }}">
+                <button class="btn btn-md btn-primary mb-3" type="submit">
+                    Subscription
+                </button>
+            </form>
+        </div>
+        <div class="ml-1 col-md-3">
+            <h2 style="color: #e3ac62">Upload Audio</h2>
+            <form action="{{path('sound')}}" method="post" enctype="multipart/form-data" >
+                <div class="col-md-12">
+                    <div class="field item form-group">
+                        <label class="col-form-label label-align">Audio<span class="required"> *</span></label>
+                        <audio autoplay width="90%" height="90%" class="profiles_imgup" id="audioImport">
+                        <source onclick="document.getElementById('audio').click();" type="audio/mp3">
+                        </audio></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="field item form-group">
+                        <label class="col-form-label label-align label-file" for="audio">Sélectionner un audio <i class="fa fa-upload" aria-hidden="true"></i><span id="preview"></span></label>
+                        <input type="file"  id="audio" name="audio" accept="audio/mp3" class="input-file w-100" placeholder="audio">
+                    </div>
+                </div>
+                <label for="name">Name</label>
+                <div class="form-group position-relative">
+                    <input type="text" value="" name="name" id="name" class="input_login bg-light border-bottom pl-2 w-90 " autocomplete="email"  autofocus>
+                </div>
+                <label for="cover">Cover</label>
+                <div class="form-group position-relative">
+                    <input type="text" value="" name="cover" id="cover" minlength="1" maxlength="3" class="input_login bg-light border-bottom pl-2 w-90 " autocomplete="email"  autofocus>
+                </div>
+                <input type="hidden" name="tokenadger" value="{{ csrf_token('tokenadger') }}">
+                <button type='submit' class="btn btn-sm btn-primary mb-3">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var f_duration =0;
+        document.getElementById('audioImport').addEventListener('canplaythrough', function(e){
+            f_duration = Math.round(e.currentTarget.duration);
+             //document.getElementById('time').value = f_duration;//1->60 255->? -14
+            URL.revokeObjectURL(obUrl);
+        });
+        var obUrl;
+        document.getElementById('audio').addEventListener('change', function(e){
+            var file = e.currentTarget.files[0];
+            document.getElementById('name').value = file.name;
+            //document.getElementById('type').value = file.type;
+            if(file.name.match(/\.(mp3|mpeg)$/i)){
+                obUrl = URL.createObjectURL(file);
+                document.getElementById('audioImport').setAttribute('src', obUrl);
+            }
+        });
+    </script>
+{% endblock %}

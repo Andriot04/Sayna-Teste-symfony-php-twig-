@@ -1,0 +1,144 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Documentation Technique{% endblock %}</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ asset('fontawesome-free/css/all.css')}}" rel="stylesheet">
+        <link href="{{ asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap/css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/cssStatic.css')}}">
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/cssStaticAdmin.css')}}">
+        <script src="{{ asset('jquery/jquery-3.5.1.min.js')}}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.js')}}"></script>
+
+
+        {% block styles %}{% endblock %}
+    </head>
+    <body>
+    <div style="min-width: 340px!important;">
+        <div class="page-wrapper" style="height: 59px">
+            <div class="nav-wrapper position-fixed ">
+                <div class="grad-bar"></div>
+                <header class="navbar" style="overflow: visible !important;">
+                    <div class="ml-n4 rollingwidth_mobile">
+                        <img class="rollingmoneys" src="{{ asset('background/rolling_money.png')}}" width="500px">
+                        <img  src="{{ asset('background/rollingPron.png')}}" class="rollingop">
+                        <div class="menu-toggle float-right" id="mobile-menu">
+                            <i class="nav-icon fas fa-bars barss"></i>
+                        </div>
+                    </div>
+                    <div class="w-100 hide_mobile_deconnexion">
+                        <div class="dropdown show float-right mt-n1">
+                            <span class="float-right text-white">
+                                {% if app.user %}
+                                    <div class="bg-dark rounded py-1 px-2">
+                                        <i class="fa fa-sign-out"></i>
+                                        {# You are logged in as {{ app.user.username }}, #} <a class="fsize14 text-white pt-3" href="{{ path('app_logout') }}">Logout</a>
+                                    </div>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+        <div style="margin-top: 1px">
+            <nav class="menu_fixed">
+                <ul class="nav no-search">
+                    <li class="nav-item">
+                        <a href="#">
+                            <p class="buttonnav {% block activenav1 %} {% endblock %}" style="text-align:center">
+                                <br/>
+                                <span class="fsize14"></span>
+                                <i class="nav-icon fas fa-user mt-n3 pl-1 hicon hideIcon"></i>
+                            </p>
+                        </a>
+
+                        <div class="grad-bar" ></div>
+
+                        <a href="" class="">
+                            <p class="buttonnavs {% block activenav2 %} {% endblock %}">
+                                <i class="nav-icon fas fa-home mr-2"></i>
+                                <span class="fsize14">Menu</span>
+                                <i class="nav-icon fas fa-home hicon hideIcon"></i>
+                            </p>
+                        </a>
+
+
+
+                    </li>
+                </ul>
+            </nav>
+            <nav class="menu_absolute">
+            </nav>
+        </div>
+        <div class="table_mobile_compte animbody" id="admin_text"  >
+            {% block body %}{% endblock %}
+        </div>
+        {% if app.user %}
+            <script type="text/javascript">
+                let user = "{{ app.user.id }}";
+            </script>
+        {% endif %}
+        <div class="modal fade pg-show-modal" id="HomeModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Voulez-vous vraimment déconnecter? </p>
+                        <input type="hidden" id="idsup">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-md btn-lg btn-danger" data-dismiss="modal">Annuler</button>
+                        <a href="{{ path('app_logout') }}">  <button type="button" class="btn btn-sm btn-md btn-lg btn-success submit-sup">Se déconnecter</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade pg-show-modal" id="LogoutModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Voulez-vous vraimment déconnecter? </p>
+                        <input type="hidden" id="idsup">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-md btn-lg btn-danger" data-dismiss="modal">Annuler</button>
+                        <a href="{{ path('app_logout') }}"> <button type="button" class="btn btn-sm btn-md btn-lg btn-success ">Oui</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+    </html>
+    <script id="rendered-js">
+        $('.menu-toggle').click(function () {
+            $(".nav").toggleClass("annimes-nav");
+            $(".menu_absolute").toggleClass("annimes-nav");
+            $(".animbody").toggleClass("reduirbody");
+            $(this).toggleClass("is-active");
+            $(".hicon").toggleClass("hideIcon");
+            $(".rollingmoneys").toggleClass("rollingmoneysAnime");
+            $(".rollingop").toggleClass("rollingops");
+            $(".barss").toggleClass("barssAnime");
+
+        });
+        $('.dropdownlink').click(function (){
+            $('.hicondropdown').toggleClass("hicondropdownrotate");
+            $('.showw').toggleClass("uservisible");
+
+        });
+    </script>
+    {% block javascripts %}{% endblock %}
